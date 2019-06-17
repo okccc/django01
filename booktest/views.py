@@ -76,16 +76,20 @@ def delete(request, num):
     b.delete()
     return redirect(to='/booktest/index')
 
-def areas(request):
+def areas01(request):
     area = AreaInfo.objects.get(title='常州市')
     parent = area.parent
     children = area.areainfo_set.all()
     context = {"area": area, "parent": parent, "children": children}
-    return render(request, "booktest/areas.html", context)
+    return render(request, "booktest/areas01.html", context)
 
 def template01(request):
-    """模板语言包括：变量{{ variable }}、标签{% tag %}、过滤器{{ variable|filter }}、注释{#...#}"""
-
+    """
+    变量{{ variable }}
+    标签{% tag %}
+    过滤器{{ variable|filter }}
+    注释{#...#}
+    """
     # 变量{{key.value}}前面的key可能是字典、对象或列表
     dict_data = {"title": "这是字典"}
     object_data = BookInfo.objects.get(id=1)
@@ -328,6 +332,32 @@ def paging(request, pindex):
     context = {"page": page_index}
     # 渲染模板
     return render(request, "booktest/paging.html", context=context)
+
+def areas02(request):
+    """省市县下拉框"""
+    return render(request, "booktest/areas02.html")
+
+def prov(request):
+    """获取所有省级地区的信息"""
+    # 1.获取所有省级地区的信息
+    areas = AreaInfo.objects.filter(parent__isnull=True)
+    # 2.遍历areas并拼接出json数据：id title
+    areas_list = []
+    for area in areas:
+        areas_list.append((area.id, area.title))
+    # 3.返回数据
+    return JsonResponse({'data': areas_list})
+
+def city(request, pid):
+    """获取pid的下级地区的信息"""
+    # 1.获取pid对应地区的下级地区
+    areas = AreaInfo.objects.filter(parent__id=pid)
+    # 2.遍历areas并拼接出json数据：id title
+    areas_list = []
+    for area in areas:
+        areas_list.append((area.id, area.title))
+    # 3.返回数据
+    return JsonResponse({'data': areas_list})
 
 
 

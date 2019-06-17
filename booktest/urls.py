@@ -17,7 +17,7 @@ urlpatterns = [
 
     url('^add/$', views.add, name='add'),
     url('^delete(\d+)/$', views.delete, name='delete'),
-    url('^areas/$', views.areas, name='areas'),  # 地区信息
+    url('^areas01/$', views.areas01, name='areas01'),  # 地区信息
 
     url('^template01', views.template01, name='template01'),
     url('^inherit', views.inherit, name='inherit'),
@@ -38,5 +38,9 @@ urlpatterns = [
     url('^upload$', views.upload, name='upload'),
     url('^upload_handler$', views.upload_handler, name='upload_handler'),
     url('^paging/(\d*)$', views.paging, name='paging'),
+    url('^areas02$', views.areas02, name='areas02'),
+    url('^prov$', views.prov, name='prov'),
+    url('^city/(\d+)$', views.city, name='city'),
+    url('^dis/(\d+)$', views.city, name='city'),
 ]
 
