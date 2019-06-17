@@ -3,7 +3,7 @@
 Django通过视图接收请求,通过模型获取数据,调用模板展示结果
 
 views
-1.视图是定义在views.py中的函数,接收request对象(包含请求信息)作为第一个参数,Django提供render()函数简化了视图调用模板、构造上下文
+1.视图是定义在views.py中的函数,接收request对象(包含请求信息)作为第一个参数,Django提供render()函数简化了视图调用模板、往模板传递数据
 2.定义完视图需要配置对应的url路由,每个app都会有单独的urls.py文件,然后将各个app的urls添加到project的urls.py文件
 url路由包括正则表达式和视图两部分 --> Django使用正则匹配请求的url,一旦匹配成功就会调用对应的视图
 注意：正则只匹配路径部分(即去除域名和参数的字符串)
@@ -57,7 +57,7 @@ def detail01(request, bid):
     return render(request, "booktest/detail01.html", context)
 
 def detail02(request, bid, hid):
-    # 构造上下文
+    # 往模板传递数据
     context = {"hero": BookInfo.objects.get(id=bid).heroinfo_set.get(id=hid)}
     # 渲染模板
     return render(request, "booktest/detail02.html", context)
@@ -308,8 +308,26 @@ def upload_handler(request):
     Picture.objects.create(picture="booktest/%s" % picture.name)
     return HttpResponse("ok")
 
-def paging(request, pnum):
+def paging(request, pindex):
     """分页"""
+    # 获取所有省份信息
+    provinces = AreaInfo.objects.filter(parent__isnull=True)
+    # 将该数据设置成每页显示10条
+    paginator = Paginator(provinces, 10)
+    # 分页后的页码总数
+    # print(paginator.num_pages)  # 4
+    # 分页后的页码列表
+    # print(paginator.page_range)  # range(1, 5)
+    # 获取第pindex页数据
+    if pindex == "":
+        pindex = 1
+    else:
+        pindex = int(pindex)
+    page_index = paginator.page(pindex)
+    # 往模板传数据
+    context = {"page": page_index}
+    # 渲染模板
+    return render(request, "booktest/paging.html", context=context)
 
 
 

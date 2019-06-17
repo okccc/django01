@@ -37,5 +37,6 @@ urlpatterns = [
     url('^static01$', views.static01, name='static01'),
     url('^upload$', views.upload, name='upload'),
     url('^upload_handler$', views.upload_handler, name='upload_handler'),
+    url('^paging/(\d*)$', views.paging, name='paging'),
 ]
 
