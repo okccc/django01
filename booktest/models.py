@@ -40,9 +40,10 @@ class BookInfo(models.Model):
     objects = BookInfoManager()
 
     # 定义元选项：模型类在数据库中对应的表名默认是app_model,可以在Meta()类定义表的元数据信息
-    class Meta():
-        # 修改默认表名
-        db_table = "bookinfo"
+    # class Meta():
+    #     # 修改默认表名
+    #     db_table = "bookinfo"
+
 
 class HeroInfo(models.Model):
     """英雄模型类"""
@@ -59,10 +60,8 @@ class HeroInfo(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta():
-        db_table = "heroinfo"
-
-    # 通过模型类实现关联查询时,要查哪个表数据就用哪个模型类查
+    # class Meta():
+    #     db_table = "heroinfo"
 
 
 class AreaInfo(models.Model):
@@ -75,5 +74,15 @@ class AreaInfo(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta():
-        db_table = "areainfo"
+    # class Meta():
+    #     db_table = "areainfo"
+
+
+class Picture(models.Model):
+    """上传图片"""
+    # upload_to指定图片上传位置media/booktest
+    picture = models.ImageField(verbose_name="上传图片", upload_to="booktest")
+
+    def __str__(self):
+        # 默认返回object对象,需转化为字符串
+        return self.picture

@@ -3,7 +3,7 @@ admin站点注册模型类
 Django提供了admin.ModelAdmin类,通过定义其子类来自定义模型在admin界面的显示方式,可以对model做增删改查
 """
 from django.contrib import admin
-from .models import BookInfo, HeroInfo, AreaInfo
+from .models import BookInfo, HeroInfo, AreaInfo, Picture
 
 # BookInfo模型类的关联对象类
 class HeroTabularInline(admin.TabularInline):
@@ -63,7 +63,14 @@ class AreaInfoAdmin(admin.ModelAdmin):
     actions_on_bottom = True
     actions_on_top = True
 
-# 注册模型到admin
+
+class PictureAdmin(admin.ModelAdmin):
+    # 显示字段(可调整字段顺序且字段可排序)
+    list_display = ['id', 'picture']
+
+
+# 注册模型类到admin站点
 admin.site.register(BookInfo, BookInfoAdmin)
 admin.site.register(HeroInfo, HeroInfoAdmin)
 admin.site.register(AreaInfo, AreaInfoAdmin)
+admin.site.register(Picture, PictureAdmin)
