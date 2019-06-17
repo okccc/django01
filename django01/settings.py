@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 项目绝对路径
+# 当前项目绝对路径
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -135,3 +136,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # 设置静态文件目录
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# 设置上传文件的保存目录
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')

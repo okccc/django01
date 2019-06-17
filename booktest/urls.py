@@ -35,5 +35,7 @@ urlpatterns = [
 
     url('^verify_code$', views.verify_code, name='verify_code'),
     url('^static01$', views.static01, name='static01'),
+    url('^upload$', views.upload, name='upload'),
+    url('^upload_handler$', views.upload_handler, name='upload_handler'),
 ]
 

@@ -29,6 +29,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.core.urlresolvers import reverse  # url反向解析
 from django.conf import settings
+from django.core.paginator import Paginator  # 分页
 from .models import *
 
 
@@ -134,7 +135,6 @@ def session01(request):
 
 def login(request):
     """显示登录页面"""
-
     # 先判断是否是已登录用户
     if "is_login" in request.session:
         # 已登录直接跳转到首页
@@ -151,7 +151,6 @@ def login(request):
 
 def login_check(request):
     """处理登录校验"""
-
     print(request.method)  # POST
     print(type(request.POST))  # <class 'django.http.request.QueryDict'>
     # 获取form表单数据
@@ -286,6 +285,31 @@ def static01(request):
     # if ip == '192.168.152.1':
     #     return HttpResponse('<h1>forbidden<h1>')
     return render(request, "booktest/static01.html")
+
+def upload(request):
+    """显式上传页面"""
+    return render(request, "booktest/upload.html")
+
+def upload_handler(request):
+    """上传文件"""
+    # 获取form表单数据
+    picture = request.FILES["pic"]
+    # print(type(picture))
+    # <class 'django.core.files.uploadedfile.InMemoryUploadedFile'>  # 上传文件<2.5M放在内存中
+    # <class 'django.core.files.uploadedfile.TemporaryUploadedFile'>  # 上传文件>2.5M放在临时文件中
+    # 读取文件内容并保存到上传文件目录
+    filename = "%s/booktest/%s" % (settings.MEDIA_ROOT, picture.name)
+    # print(filename)
+    with open(filename, "wb") as f:
+        # chunks()返回生成器,取代read()防止文件太大占用过多内存
+        for content in picture.chunks():
+            f.write(content)
+    # 在数据库中保存上传记录
+    Picture.objects.create(picture="booktest/%s" % picture.name)
+    return HttpResponse("ok")
+
+def paging(request, pnum):
+    """分页"""
 
 
 
