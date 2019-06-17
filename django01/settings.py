@@ -51,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 激活自定义中间件
+    'booktest.middleware.SimpleMiddleware',
 ]
 
 ROOT_URLCONF = 'django01.urls'
@@ -129,6 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+# 访问静态文件对应的url
 STATIC_URL = '/static/'
 # 设置静态文件目录
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
