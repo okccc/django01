@@ -1,10 +1,10 @@
-insert into bookinfo(title,pub_date,reading,comments,isDelete) values
+insert into booktest_bookinfo(title,pub_date,reading,comments,isDelete) values
 ('射雕英雄传','1980-5-1',12,34,0),
 ('天龙八部','1986-7-24',36,40,0),
 ('笑傲江湖','1995-12-24',20,80,0),
 ('雪山飞狐','1987-11-11',58,24,0);
 
-insert into heroinfo(name,gender,introduce,isDelete,book_id) values
+insert into booktest_heroinfo(name,gender,introduce,isDelete,book_id) values
 ('郭靖',1,'降龙十八掌',0,1),
 ('黄蓉',0,'打狗棍法',0,1),
 ('黄药师',1,'弹指神通',0,1),

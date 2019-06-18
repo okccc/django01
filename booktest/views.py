@@ -10,20 +10,6 @@ url路由包括正则表达式和视图两部分 --> Django使用正则匹配请
 http://192.168.233.11:7777/booktest/1/?i=1&j=2 --> 只匹配booktest/1/部分
 匹配过程：先与project的url路由匹配,成功后再用剩余部分与app中的url路由匹配
 先拿'booktest/'匹配project中的urls.py,再拿'1/'匹配app中的urls.py
-
-模板继承
-    模板继承可以实现页面内容的重用 --> 比如同一个网站各个页面的头部/底部都是一样的,这些内容只需定义在父模板中即可
-    block标签：在父模板中预留区域由子模板填充; extends继承：写在模板文件的第一行,父模板已有的字模板不需要重写
-    定义父模板base.html: {% block block_name %}...{% endblock %}
-    定义子模板index.html: {% extends "base.html" %}...{% block block_name %}...{% endblock %}
-html转义
-    如果输出的字符串中包含html标签(比如<>),需要将包含的html标签转义成字符串输出而不被解释执行
-    < 会转换为&lt;
-    > 会转换为&gt;
-    ' (单引号) 会转换为&#39;
-    " (双引号)会转换为 &quot;
-    & 会转换为 &amp;
-
 """
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse

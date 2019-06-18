@@ -8,6 +8,7 @@
      pymysql.install_as_MySQLdb()
 """
 from django.db import models
+from tinymce.models import HTMLField
 
 class BookInfoManager(models.Manager):
     """模型管理器类"""
@@ -86,3 +87,17 @@ class Picture(models.Model):
     def __str__(self):
         # 默认返回object对象,需转化为字符串
         return self.picture
+
+
+class Goods(models.Model):
+    """choice选项和富文本编辑器"""
+    STATUS_CHOICES = (
+        (0, '下架'),
+        (1, '上架')
+    )
+    status = models.SmallIntegerField(default=1, choices=STATUS_CHOICES, verbose_name='商品状态')
+    detail = HTMLField(verbose_name='商品详情')
+
+    class Meta:
+        verbose_name = '商品'
+        verbose_name_plural = verbose_name

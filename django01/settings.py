@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 注册新的应用
     'booktest',
+    'tinymce',  # 富文本编辑器
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # 设置上传文件的保存目录
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+
+# 富文本编辑器配置
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'advanced',
+    'width': 600,
+    'height': 400,
+}
