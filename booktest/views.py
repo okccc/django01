@@ -99,8 +99,8 @@ def cookie01(request):
     """
     http协议是无状态的,客户端与服务器使用套接字通信完成之后会关闭当前socket连接,所以每次通信都是一次新的会话而不会记得之前的通信状态
     可以通过cookie或session两种方式实现会话保持,会话保持的目的是在一段时间内跟踪请求者的状态从而实现跨页面访问当前请求者的数据
-    cookie：适用于记住用户名这种安全性不高的场景
-    session：适用于账号密码、余额、等级、验证码等安全性较高的场景
+    cookie：存放在客户端,所以是response.set_cookie(),适用于记住用户名这种安全性不高的场景
+    session：存放在服务端,所以是request.session[''],适用于账号密码、余额、等级、验证码等安全性较高的场景
     """
     response = HttpResponse("cookie测试")
     # 设置cookie
@@ -116,11 +116,11 @@ def session01(request):
     # 设置过期时间：默认两周,0表示关闭浏览器失效
     request.session.set_expiry(5)
     # 删除指定session_key的session_data值
-    del request.session["age"]
+    # del request.session["age"]
     # 清空所有session_key的session_data值
-    request.session.clear()
+    # request.session.clear()
     # 删除所有session_key,并删除Cookie中的sessionid
-    request.session.flush()
+    # request.session.flush()
     return HttpResponse("session测试")
 
 def login(request):
